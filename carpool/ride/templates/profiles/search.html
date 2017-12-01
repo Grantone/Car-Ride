@@ -1,0 +1,20 @@
+<!-- {%extends 'profiles/base.html'%} {% block content %}
+<div class="container">
+
+  <div class="row">
+    {% if cars%}
+    <h2>Found {{ cars|length }} of searched term {{message}}</h2> {% else %}
+    <h2> Found 0 car for the search term {{message}}</h2> {% endif %}
+
+  </div>
+
+  <div class="row">
+
+    {% if car %} {% for car in cars %}
+    <div class="col-sm-6 col-md-3">
+      <a href="{% url 'car' car.id%}"><h1>{{car.title}}</h1></a>
+    </div>
+    {% endfor %} {% endif %}
+  </div>
+</div>
+{% endblock %} -->

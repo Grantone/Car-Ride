@@ -46,3 +46,6 @@ def convert_dates(dates):
 #     else:
 #         message = "You haven't searched for any car ride"
 #         return render(request, 'profiles/search.html', {"message": message})
+
+def profile(request, profile_id):
+    return render(request, 'all-rides/profile.html')

@@ -1,0 +1,42 @@
+{% extends 'all-news/base.html' %} {% block content %} {{block.super}} {% load bootstrap3 %}
+
+<div class="container">
+
+  <!-- Looping through news -->
+  {% for ride_item in rides %}
+
+  <div class="row">
+    <!-- displaying News articles -->
+    <div class="col-xs-6 col-sm-6 col-lg-6">
+      <a href="{% url 'article' news_item.id %}"><h2 class="text-center"> {{ ride_item.title }}</h2></a>
+
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <img src="{{news_item.article_image.url}}" alt="Image" class="img-responsive">
+    </div>
+
+  </div>
+
+
+  {% empty %}
+  <div class="row">
+    <h2 class="text-center">There is no selected car</h2>
+
+  </div>
+  {% endfor %}
+  <!-- Looping through news end   -->
+  <div class="container-fluid">
+
+    <form action="{%url 'rideToday'%}" method="post">
+      {%csrf_token%} {% for field in form %} {% bootstrap_field field %} {% endfor %}
+      <input type="submit" value="Subscribe">
+    </form>
+
+  </div>
+
+
+
+</div>
+
+{% endblock %}

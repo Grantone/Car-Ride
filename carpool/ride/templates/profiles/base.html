@@ -1,0 +1,24 @@
+{% load bootstrap3 %} {% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8"> {% if title %}
+  <title>The Ride - {{title}}</title>
+  {% else %}
+  <title> The Ride </title>
+  {% endif %} {% block styles %} {% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/rides.css' %}"> {% endblock %}
+
+</head>
+
+<body>
+  {% include "navbar.html" %} {% block content %}
+  <h1 class='text-center'>Ride for {{date|date:"l d-F Y"}}</h1> {%endblock%} {% block scripts %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  {% bootstrap_javascript %} {% endblock %}
+</body>
+
+</html>

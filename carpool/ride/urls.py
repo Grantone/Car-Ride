@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url('^$', views.index, name='index'),
-    url('^today/$', views.ride_of_day, name='rideToday')
+    url('^today/$', views.ride_of_day, name='rideToday'),
+    url(r'^new/profile$', views.new_profile, name='new-profile')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

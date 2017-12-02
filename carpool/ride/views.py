@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import datetime as dt
 from django.contrib.auth.decorators import login_required
+from .forms import NewProfileForm
 
 # Create your views here.
 
 
 def index(request):
-    return render(request, 'profiles/index.html')
+    return render(request, 'all-rides/index.html')
 
 
 def ride_of_day(request):
@@ -55,7 +56,7 @@ def profile(request, profile_id):
 from .email import send_welcome_email
 
 
-def news_today(request):
+def ride_today(request):
     if request.method == 'POST':
         form = CarRideForm(request.POST)
         if form.is_valid():
@@ -69,3 +70,17 @@ def news_today(request):
             HttpResponseRedirect('news_today')
             #.................
     return render(request, 'all-news/today-news.html', {"date": date, "ride": ride, "letterForm": form})
+
+
+@login_required(login_url='/accounts/login/')
+def new_profile(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.editor = current_user
+            profile.save()
+    else:
+        form = NewProfileForm()
+    return render(request, 'new_profile.html', {"form": form})

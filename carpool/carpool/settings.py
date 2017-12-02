@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ride.apps.RideConfig',
-    'bootstrap3'
+    'bootstrap3',
+    'tinymce',
 ]
 
 MIDDLEWARE = [

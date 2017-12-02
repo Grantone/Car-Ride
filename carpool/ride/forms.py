@@ -1,5 +1,7 @@
 from django import forms
 from .models import Profile
+from .models import *
+from django.forms import widgets
 
 
 class CarRideForm(forms.Form):
@@ -14,3 +16,20 @@ class NewProfileForm(forms.ModelForm):
         widgets = {
             'profile': forms.CheckboxSelectMultiple(),
         }
+
+
+class VehicleAddForm(forms.ModelForm):
+    make = forms.CharField(widget=forms.TextInput(
+        attrs={'required': True, 'class': 'form-control'}))
+    model = forms.CharField(widget=forms.TextInput(
+        attrs={'required': True, 'class': 'form-control'}))
+
+    type = forms.ChoiceField(choices=(('private', 'private'), ('hired', 'hired')),
+                             widget=forms.Select(attrs={'class': 'form-control', 'required': True}))
+    seats = forms.IntegerField(widget=forms.TextInput(
+        attrs={'type': 'number', 'class': 'form-control', 'required': True}))
+
+
+class Meta:
+    model = Vehicle
+    fields = ['make', 'model', 'plate', 'seats', 'type']

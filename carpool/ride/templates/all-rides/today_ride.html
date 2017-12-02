@@ -2,18 +2,18 @@
 
 <div class="container">
 
-  <!-- Looping through news -->
+  <!-- Looping through ride -->
   {% for ride_item in rides %}
 
   <div class="row">
-    <!-- displaying News articles -->
+    <!-- displaying ride articles -->
     <div class="col-xs-6 col-sm-6 col-lg-6">
-      <a href="{% url 'article' news_item.id %}"><h2 class="text-center"> {{ ride_item.title }}</h2></a>
+      <a href="{% url 'article' ride_item.id %}"><h2 class="text-center"> {{ ride_item.title }}</h2></a>
 
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <img src="{{news_item.article_image.url}}" alt="Image" class="img-responsive">
+      <img src="{{ride_item.article_image.url}}" alt="Image" class="img-responsive">
     </div>
 
   </div>
@@ -25,7 +25,7 @@
 
   </div>
   {% endfor %}
-  <!-- Looping through news end   -->
+  <!-- Looping through ride end   -->
   <div class="container-fluid">
 
     <form action="{%url 'rideToday'%}" method="post">

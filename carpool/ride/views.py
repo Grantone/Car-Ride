@@ -67,9 +67,9 @@ def ride_today(request):
             recipient.save()
             send_welcome_email(name, email)
 
-            HttpResponseRedirect('news_today')
+            HttpResponseRedirect('ride_today')
             #.................
-    return render(request, 'all-news/today-news.html', {"date": date, "ride": ride, "letterForm": form})
+    return render(request, 'all-ride/today-ride.html', {"date": date, "ride": ride, "letterForm": form})
 
 
 @login_required(login_url='/accounts/login/')

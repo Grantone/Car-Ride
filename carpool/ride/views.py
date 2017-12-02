@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import datetime as dt
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -46,6 +47,25 @@ def convert_dates(dates):
 #     else:
 #         message = "You haven't searched for any car ride"
 #         return render(request, 'profiles/search.html', {"message": message})
-
+@login_required(login_url='/accounts/login/')
 def profile(request, profile_id):
     return render(request, 'all-rides/profile.html')
+
+
+from .email import send_welcome_email
+
+
+def news_today(request):
+    if request.method == 'POST':
+        form = CarRideForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['email']
+
+            recipient = CarRideRecipients(name=name, email=email)
+            recipient.save()
+            send_welcome_email(name, email)
+
+            HttpResponseRedirect('news_today')
+            #.................
+    return render(request, 'all-news/today-news.html', {"date": date, "ride": ride, "letterForm": form})

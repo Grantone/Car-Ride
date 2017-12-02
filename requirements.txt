@@ -1,5 +1,10 @@
+confusable-homoglyphs==2.0.2
 Django==1.11.7
 django-bootstrap3==9.1.0
+django-registration==2.3
+olefile==0.44
+Pillow==4.3.0
 
 psycopg2==2.7.3.2
+python-decouple==3.1
 pytz==2017.3

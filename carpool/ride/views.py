@@ -3,7 +3,8 @@ from django.http import HttpResponse
 import datetime as dt
 from django.contrib.auth.decorators import login_required
 from .forms import NewProfileForm
-
+from .models import User
+from .email import send_welcome_email
 # Create your views here.
 
 

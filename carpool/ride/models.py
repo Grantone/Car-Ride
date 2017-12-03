@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from django.utils.translation import ugettext_lazy as _
+from django.core import validators
 
 # Create your models here.
 
@@ -31,3 +32,35 @@ class Vehicle(models.Model):
     seats = models.IntegerField(_('no of seats'), blank=False)
     type = models.CharField(_('vehicle type'), max_length=30,
                             blank=False)
+
+
+class Request(models.Model):
+    pick = models.CharField(_('pick up point'), max_length=256, blank=False, )
+    dest = models.CharField(_('destination'), max_length=256, blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(
+        _('status'), max_length=256, blank=False, default='pending')
+    ride = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "request from " + self.user.get_full_name()
+
+
+class VehicleSharing(models.Model):
+    start = models.CharField(max_length=30)
+    destination = models.CharField(max_length=60)
+    cost = models.IntegerField(blank=False)
+    start_time = models.TimeField(max_length=60, blank=False)
+    no_pass = models.IntegerField(_('no of passengers'), blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    ended = models.BooleanField(_('sharing ended'), default=False)
+
+    def __str__(self):
+        return self.start + " to " + self.dest
+
+    def get_user(self):
+        return self.user
+
+    def get_absolute_url(self):
+        return "/app/sharing/%d/view" % self.pk

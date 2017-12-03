@@ -5,11 +5,33 @@ from django.contrib.auth.decorators import login_required
 from .forms import NewProfileForm
 from .models import User
 from .email import send_welcome_email
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 
 def index(request):
     return render(request, 'all-rides/index.html')
+
+
+def login_user(request):
+    form = AuthenticationForm()
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+
+    return render(request, 'registration/login.html', {
+        'form': form
+    })
+
+
+def signout(request):
+    logout(request)
+    return redirect('index')
 
 
 def ride_of_day(request):

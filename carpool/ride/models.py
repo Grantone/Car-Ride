@@ -24,6 +24,14 @@ class DriverInfo(models.Model):
     scanned = models.ImageField(_('picture of driver\'s liscence'), blank=True)
     confirmed = models.BooleanField(_('confirmed'), default=False)
 
+    @receiver(post_save, sender=Driver)
+    def create_driver_profile(sender, instance, created, **kwargs):
+        if created:
+            DriverProfile(driver=instance)
+        sender = Driver
+        save_driver_profile
+        instance.driverprofile.save()
+
 
 class Vehicle(models.Model):
     make = models.CharField(_('vehicle make'), max_length=160, blank=False)
@@ -63,7 +71,7 @@ class VehicleSharing(models.Model):
         return self.user
 
     def get_absolute_url(self):
-        return "/app/sharing/%d/view" % self.pk
+        return self.pk
 
 
 class PassengerInfo(models.Model):

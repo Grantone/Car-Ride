@@ -64,3 +64,9 @@ class VehicleSharing(models.Model):
 
     def get_absolute_url(self):
         return "/app/sharing/%d/view" % self.pk
+
+
+class PassengerInfo(models.Model):
+    passenger = models.OneToOneField(User, on_delete=models.CASCADE)
+    scanned = models.ImageField(_('picture of passenger'), blank=True)
+    confirmed = models.BooleanField(_('confirmed'), default=False)

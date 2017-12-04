@@ -1,45 +1,11 @@
-{% extends 'all-rides/base.html' %} {% load bootstrap3 %} {% load static %} {% block styles %} {{block.super}}
-<link rel="stylesheet" href="{% static 'css/base.css' %}"> {% endblock %} {% block content %}
+{% extends 'all-rides/base.html' %} {% block content %}
 <div class="cont">
-  <div class="row">
-    <!-- Empty div -->
-    <div class="col-md-2"></div>
-    <div class="col-md-10">
-      <div class="col-md-7">
-        {% for profile in profiles %}
-
-        <div class="card">
-          <div class="container">
-            <div class="panel-group">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <p>{{profile.title}}</p>
-                  <a href="#">
-                    <li><span class="glyphicon glyphicon-heart"></span>
-                  </a>Likes</li>
-                </div>
-                <div class="panel-body">
-                  <img src="{{profile.picture.url}}" class="img-responsive" alt="Image" id="space">
-                </div>
-                <div class="panel-footer">
-                  <input type="text" class="form-control" placeholder="Leave a Comment..." aria-describedby="comment">
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <div class="container">
-          <p>{{profile.picture}}</p>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="text-center" style="text-shadow:#000 2px 2px 15px;">
+        <h1>Explore Nairobi Easily</h1>
       </div>
-      {% empty %}
-      <p></p>
-      {% endfor %}
     </div>
-
   </div>
-
-
 </div>
 {% endblock %}

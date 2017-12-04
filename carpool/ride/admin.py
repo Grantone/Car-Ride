@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Driver, Vehicle, Request, VehicleSharing, PassengerInfo
+from .models import Profile, Driver, Vehicle, Request, VehicleSharing, Passenger
 
 # Register your models here.
 admin.site.register(Profile)

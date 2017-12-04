@@ -1,6 +1,6 @@
 {% extends 'all-rides/base.html' %} {% load bootstrap3 %} {% load static %} {% block styles %} {{block.super}}
 <link rel="stylesheet" href="{% static 'css/base.css' %}"> {% endblock %} {% block content %}
-<div class="container">
+<div class="cont">
   <div class="row">
     <!-- Empty div -->
     <div class="col-md-2"></div>
@@ -34,16 +34,12 @@
         </div>
       </div>
       {% empty %}
-      <p>No profile to display yet</p>
+      <p></p>
       {% endfor %}
     </div>
 
   </div>
 
 
-</div>
-</div>
-</div>
-</div>
 </div>
 {% endblock %}

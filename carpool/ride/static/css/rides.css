@@ -3,5 +3,13 @@ h1 {
 }
 
 .navbar {
-   background-color: #26C6DA !important;
+   background-color: #26DAB7 !important;
 }
+
+.cont{
+  background-image: url('/media/static/Nairobi-from-KICC.jpeg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100vh;
+  width: 100%;
+  color: white;

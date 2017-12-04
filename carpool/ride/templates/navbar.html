@@ -16,57 +16,37 @@
       </div>
 
       <!-- adding a search form -->
-      <div class="col-sm-4 col-md-4 navbar-right">
-        <form class="navbar-form" action="" role="search">
-          <div class="input-group">
-            <input type="text" name="car" placeholder="Search" class="form-control">
-            <div class="input-group-btn">
-              <button type="submit" class="btn btn-default">
-                  <i class="glyphicon glyphicon-search"></i>
-                </button>
+      <ul class="nav navbar-nav navbar-right">
+
+        <li>
+          <form class="navbar-form" action="" role="search">
+            <div class="input-group">
+              <input type="text" name="car" placeholder="Search" class="form-control">
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-default">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+              </div>
             </div>
-          </div>
 
-        </form>
+          </form>
+        </li>
+      </ul>
 
-        <!--The search form above-->
-        <div class="col-sm-6 col-md-6">
-          {% if user.is_authenticated %}
-          <ul>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
-                            <span class="caret"></span>
-                        </a>
-              <ul class="dropdown-menu" role="menu">
-                <li>
-                  <a href="{%url 'rideToday'%}">Home</a>
-                </li>
-                <li>
-                  <a href="{%url 'new-profile'%}">Edit Profile</a>
-                </li>
-                <li>
-                  <a href="/accounts/password/change">Change Password</a>
-                </li>
-                <li>
-                  <a href="/logout">Logout</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          {% else %}
-          <li>
-            <a class='btn btn-default' href="/accounts/login">Login</a>
-          </li>
-          {% endif %}
-        </div>
-        <!-- <ul>
+      <!--The search form above-->
+      <div class="col-sm-6 col-md-6">
+        {% if user.is_authenticated %}
+        <ul>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
-                          <span class="caret"></span>
-                      </a>
+                            <span class="caret"></span>
+                        </a>
             <ul class="dropdown-menu" role="menu">
               <li>
                 <a href="{%url 'rideToday'%}">Home</a>
+              </li>
+              <li>
+                <a href="/login">Login</a>
               </li>
               <li>
                 <a href="{%url 'new-profile'%}">Edit Profile</a>
@@ -74,8 +54,15 @@
               <li>
                 <a href="/accounts/password/change">Change Password</a>
               </li>
-
+              <li>
+                <a href="/logout">Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        {% else %}
+        <li>
+          <a class='btn btn-default' href="/accounts/login">Login</a>
+        </li>
+        {% endif %}
       </div>
-      <! search form end -->
-        <!-- </div> -->
-        <!-- </div> -->

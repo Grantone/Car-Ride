@@ -26,13 +26,13 @@ class Driver(models.Model):
     scanned = models.ImageField(_('picture of driver\'s liscence'), blank=True)
     confirmed = models.BooleanField(_('confirmed'), default=False)
 
-    @receiver(post_save, sender=Driver)
-    def create_driver_profile(sender, instance, created, **kwargs):
-        if created:
-            DriverProfile(driver=instance)
-        sender = Driver
-        save_driver_profile
-        instance.driverprofile.save()
+    # @receiver(post_save, sender=Driver)
+    # def create_driver_profile(sender, instance, created, **kwargs):
+    #     if created:
+    #         DriverProfile(driver=instance)
+    #     sender = Driver
+    #     save_driver_profile
+    #     instance.driverprofile.save()
 
 
 class Vehicle(models.Model):

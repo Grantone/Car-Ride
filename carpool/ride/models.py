@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from django.utils.translation import ugettext_lazy as _
 from django.core import validators
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create your models here.
 
@@ -17,7 +19,7 @@ class Profile(models.Model):
         return self.user.username
 
 
-class DriverInfo(models.Model):
+class Driver(models.Model):
     driver = models.OneToOneField(User, on_delete=models.CASCADE)
     liscence_no = models.CharField(
         _('liscence_no'), max_length=30, blank=False)
@@ -74,7 +76,7 @@ class VehicleSharing(models.Model):
         return self.pk
 
 
-class PassengerInfo(models.Model):
+class Passenger(models.Model):
     passenger = models.OneToOneField(User, on_delete=models.CASCADE)
     scanned = models.ImageField(_('picture of passenger'), blank=True)
     confirmed = models.BooleanField(_('confirmed'), default=False)

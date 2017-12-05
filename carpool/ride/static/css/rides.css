@@ -7,9 +7,14 @@ h1 {
 }
 
 .cont{
-  background-image: url('/static/images/nairofi.jpg');
+  background-image: url('/static/images/nairofi.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
   width: 100%;
   color: white;
+}
+
+#dere {
+  text-align: center;
+}

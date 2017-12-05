@@ -33,3 +33,26 @@ class VehicleAddForm(forms.ModelForm):
 class Meta:
     model = Vehicle
     fields = ['make', 'model', 'plate', 'seats', 'type']
+
+
+class DriverProfileForm(forms.ModelForm):
+    class Meta:
+        model = DriverProfile
+        fields = ('driver', 'liscence_no', 'scanned')
+        widgets = {
+            'passengerprofile': forms.CheckboxSelectMultiple(),
+        }
+
+
+class PassengerProfileForm(forms.ModelForm):
+    class Meta:
+        model = PassengerProfileForm
+        fields = ('passenger', 'scanned', 'confirmed')
+
+    def __init__(self, user, *args, **kwargs)
+        self.user = user
+        super(PassengerProfileForm, self).__init__(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        self.instance.user = self.user
+        super(PassengerProfileForm, self).save(*args, **kwargs)

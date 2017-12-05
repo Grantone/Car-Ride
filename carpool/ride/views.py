@@ -94,7 +94,7 @@ def ride_today(request):
             send_welcome_email(name, email)
 
             HttpResponseRedirect('ride_today')
-            #.................
+
     return render(request, 'all-ride/today-ride.html', {"ride": ride, "letterForm": form})
 
 
@@ -116,4 +116,12 @@ def new_profile(request):
 
 
 def passenger(request):
+    form = PassengerProfileForm(request.POST)
+    passenger = form.save(commit=False)
+    passenger.user = request.user
+    passenger.save()
     return render(request, 'passenger.html')
+
+
+def driver(request):
+    return render(request, 'driver.html')

@@ -116,14 +116,16 @@ def new_profile(request):
 
 
 def passenger(request):
-    form = PassengerForm()
+    print('<><><><><><><>')
+    form = PassengerProfileForm()
     if request.method == 'POST':
-        passenger_form = Pasenger.data(request.'POST')
+        passenger_form = Passenger.data(
+            request.POST, instance=request.user.passenger, files=request.FILES)
     form = PassengerProfileForm(request.POST)
     passenger = form.save(commit=False)
     passenger.user = request.user
     passenger.save()
-    return render(request, 'passenger.html' {'form': form})
+    return render(request, 'passenger.html', {'form': form})
 
 
 def driver(request):

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import datetime as dt
 from django.contrib.auth.decorators import login_required
 from .forms import NewProfileForm
-from .models import User
+from .models import User, Profile
 from .email import send_welcome_email
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
@@ -13,15 +13,15 @@ def index(request):
     return render(request, 'all-rides/index.html')
 
 
-def login_user(request):
+def login_driver(request):
     form = AuthenticationForm()
 
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        user = authenticate(username=username, password=password)
+        driver = authenticate(username=username, password=password)
         if user is not None:
-            login(request, user)
+            login(request, driver)
             return redirect('index')
 
     return render(request, 'registration/login.html', {
@@ -73,7 +73,10 @@ def convert_dates(dates):
 #         return render(request, 'profiles/search.html', {"message": message})
 @login_required(login_url='/accounts/login/')
 def profile(request, profile_id):
-    return render(request, 'all-rides/profile.html')
+    profile = Profile.objects.get(id=profile_id)
+    date = dt.date.today()
+    print(date)
+    return render(request, 'all-rides/profile.html', {"date": date, "profile": profile})
 
 
 from .email import send_welcome_email
@@ -92,18 +95,25 @@ def ride_today(request):
 
             HttpResponseRedirect('ride_today')
             #.................
-    return render(request, 'all-ride/today-ride.html', {"date": date, "ride": ride, "letterForm": form})
+    return render(request, 'all-ride/today-ride.html', {"ride": ride, "letterForm": form})
 
 
 @login_required(login_url='/accounts/login/')
 def new_profile(request):
     current_user = request.user
+    found_profile = current_user.profile
     if request.method == 'POST':
-        form = NewProfileForm(request.POST, request.FILES)
+        form = NewProfileForm(
+            request.POST, instance=current_user.profile,  files=request.FILES)
         if form.is_valid():
-            profile = form.save(commit=False)
-            profile.editor = current_user
-            profile.save()
+            update_profile = form.save(commit=False)
+            update_profile.user = current_user
+            update_profile.save()
+            return redirect(profile, found_profile.id)
     else:
-        form = NewProfileForm()
+        form = NewProfileForm(instance=current_user.profile)
     return render(request, 'new_profile.html', {"form": form})
+
+
+def passenger(request):
+    return render(request, 'passenger.html')

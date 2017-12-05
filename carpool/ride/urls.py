@@ -8,7 +8,8 @@ urlpatterns = [
     # url(r'^accounts/login/$', views.login, name='login'),
     # url(r'^accounts/logout/$', views.logout, {"next_page": '/'}),
     url('^today/$', views.ride_of_day, name='rideToday'),
-    url(r'^new/profile$', views.new_profile, name='new-profile')
+    url(r'^new/profile$', views.new_profile, name='new-profile'),
+    url(r'^ride/(\d+)$', views.profile, name='profile')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

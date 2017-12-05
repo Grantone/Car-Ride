@@ -12,7 +12,7 @@ class CarRideForm(forms.Form):
 class NewProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ['picture', 'bio', 'work']
+        fields = ('picture', 'bio', 'work')
         widgets = {
             'profile': forms.CheckboxSelectMultiple(),
         }

@@ -37,19 +37,19 @@ class Meta:
 
 class DriverProfileForm(forms.ModelForm):
     class Meta:
-        model = DriverProfile
+        model = Driver
         fields = ('driver', 'liscence_no', 'scanned')
         widgets = {
-            'passengerprofile': forms.CheckboxSelectMultiple(),
+            'driverprofile': forms.CheckboxSelectMultiple(),
         }
 
 
 class PassengerProfileForm(forms.ModelForm):
     class Meta:
-        model = PassengerProfileForm
+        model = Passenger
         fields = ('passenger', 'scanned', 'confirmed')
 
-    def __init__(self, user, *args, **kwargs)
+    def __init__(self, user, *args, **kwargs):
         self.user = user
         super(PassengerProfileForm, self).__init__(*args, **kwargs)
 

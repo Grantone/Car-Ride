@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import datetime as dt
 from django.contrib.auth.decorators import login_required
-from .forms import NewProfileForm
+from .forms import NewProfileForm, PassengerProfileForm, DriverProfileForm
 from .models import User, Profile
 from .email import send_welcome_email
 from django.contrib.auth import authenticate, login, logout
@@ -116,11 +116,14 @@ def new_profile(request):
 
 
 def passenger(request):
+    form = PassengerForm()
+    if request.method == 'POST':
+        passenger_form = Pasenger.data(request.'POST')
     form = PassengerProfileForm(request.POST)
     passenger = form.save(commit=False)
     passenger.user = request.user
     passenger.save()
-    return render(request, 'passenger.html')
+    return render(request, 'passenger.html' {'form': form})
 
 
 def driver(request):

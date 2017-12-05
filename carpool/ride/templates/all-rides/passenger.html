@@ -1,0 +1,5 @@
+{% load bootstrap3 %}
+<form action='{%url "passenger_profile"%}' method="post">
+  {% csrf_token %} {% bootstrap_form form%}
+  <input type="submit" value="Submit" />
+</form>

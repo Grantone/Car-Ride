@@ -118,7 +118,7 @@ def new_profile(request):
 def passenger(request):
 
     current_user = request.user
-    passenger = Passenger.objects.get(user=current_user)
+    passenger = Passenger.objects.filter(user=current_user)
     print('<><><><><><><><><><>')
     form = PassengerForm(request.POST)
     if request.method == 'POST':
@@ -127,11 +127,11 @@ def passenger(request):
             passenger = form.save(commit=False)
             passenger.user = request.user
             passenger.save()
-            return redirect(passenger, passenger_id)
+            return redirect(passenger_profile, passenger.id)
 
     else:
         form = PassengerForm(user=current_user)
-        return render(request, 'all-rides/passenger.html', {"form": form})
+        return render(request, 'all-rides/passenger.html', {"form": form, "passenger": current_user})
 
 
 def driver(request):

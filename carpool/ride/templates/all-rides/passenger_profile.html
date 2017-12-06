@@ -1,0 +1,24 @@
+{%extends 'all-rides/base.html'%} {% block content %}
+
+<div class="container">
+
+  <div class="row">
+    <img src="{{passenger_profile.picture.url}}" class="img-responsive" alt="">
+  </div>
+
+  <div class="row">
+    <h1 class="text-center">{passenger_profile.title}}</h1>
+  </div>
+
+  <div class="row">
+    {% autoescape on %} {{passenger_profile.post| safe}} {% endautoescape %}
+
+  </div>
+
+  <div class="row">
+    <p>Posted {{passenger_profile.scanned}} by {{passenger_profile.confimed}}</p>
+  </div>
+
+</div>
+
+{% endblock %}

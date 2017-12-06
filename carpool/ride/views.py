@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import datetime as dt
 from django.contrib.auth.decorators import login_required
-from .forms import NewProfileForm, PassengerForm, DriverProfileForm
+from .forms import NewProfileForm, PassengerForm, DriverForm
 from .models import User, Profile, Passenger
 from .email import send_welcome_email
 from django.contrib.auth import authenticate, login, logout
@@ -116,20 +116,29 @@ def new_profile(request):
 
 
 def passenger(request):
-    print('<><><><><><><><><><>')
-    current_user = request.user
-    passenger = Passenger.objects.filter(user=current_user).all()
-    form = PassengerForm()
 
-    if request.method == 'POST':
-        passenger_form = Passenger.data(
-            request.POST, instance=request.user.passenger, files=request.FILES)
+    current_user = request.user
+    passenger = Passenger.objects.get(user=current_user)
+    print('<><><><><><><><><><>')
     form = PassengerForm(request.POST)
-    passenger = form.save(commit=False)
-    passenger.user = request.user
-    passenger.save()
-    return render(request, 'passenger.html', {'form': form})
+    if request.method == 'POST':
+        form = PassengerForm(request.POST, request.FILES)
+        if form.is_valid():
+            passenger = form.save(commit=False)
+            passenger.user = request.user
+            passenger.save()
+            return redirect(passenger, passenger_id)
+
+    else:
+        form = PassengerForm(user=current_user)
+        return render(request, 'all-rides/passenger.html', {"form": form})
 
 
 def driver(request):
     return render(request, 'driver.html')
+
+
+def passenger_profile(request, passenger_id):
+    passenger_profile = Profile.objects.get(id=passenger_id)
+
+    return render(request, 'all-rides/passenger_profile.html', {"passenger_profile": passenger_profile})

@@ -35,7 +35,7 @@ class Meta:
     fields = ['make', 'model', 'plate', 'seats', 'type']
 
 
-class DriverProfileForm(forms.ModelForm):
+class DriverForm(forms.ModelForm):
     class Meta:
         model = Driver
         fields = ('driver', 'liscence_no', 'scanned')
@@ -47,12 +47,13 @@ class DriverProfileForm(forms.ModelForm):
 class PassengerForm(forms.ModelForm):
     class Meta:
         model = Passenger
+        exclude = ['user', ]
         fields = ('passenger', 'scanned', 'confirmed')
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        super(PassengerProfileForm, self).__init__(*args, **kwargs)
+        super(PassengerForm, self).__init__(*args, **kwargs)
 
     def save(self, *args, **kwargs):
         self.instance.user = self.user
-        super(PassengerProfileForm, self).save(*args, **kwargs)
+        super(PassengerForm, self).save(*args, **kwargs)

@@ -48,7 +48,6 @@ class Vehicle(models.Model):
 class Request(models.Model):
     pick = models.CharField(_('pick up point'), max_length=256, blank=False, )
     dest = models.CharField(_('destination'), max_length=256, blank=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(
         _('status'), max_length=256, blank=False, default='pending')
     ride = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
@@ -78,6 +77,10 @@ class VehicleSharing(models.Model):
 
 
 class Passenger(models.Model):
+    user = models.ForeignKey(User, null=True)
     passenger = models.CharField(max_length=30)
     scanned = models.ImageField(_('picture of passenger'), blank=True)
     confirmed = models.BooleanField(_('confirmed'), default=False)
+
+    def __str__(self):
+        return self.passenger

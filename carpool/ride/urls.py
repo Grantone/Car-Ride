@@ -10,7 +10,7 @@ urlpatterns = [
     url('^today/$', views.ride_of_day, name='rideToday'),
     url(r'^new/profile$', views.new_profile, name='new-profile'),
     url(r'^ride/(\d+)$', views.profile, name='profile'),
-    url(r'^passenger', views.passenger, name='passenger'),
+    url(r'^passenger/$', views.passenger, name='passenger'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

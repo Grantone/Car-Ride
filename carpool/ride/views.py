@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import datetime as dt
 from django.contrib.auth.decorators import login_required
-from .forms import NewProfileForm, PassengerProfileForm, DriverProfileForm
-from .models import User, Profile
+from .forms import NewProfileForm, PassengerForm, DriverProfileForm
+from .models import User, Profile, Passenger
 from .email import send_welcome_email
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
@@ -116,12 +116,15 @@ def new_profile(request):
 
 
 def passenger(request):
-    print('<><><><><><><>')
-    form = PassengerProfileForm()
+
+    current_user = request.user
+    passenger = Passenger.objects.filter(user=current_user).all()
+    form = PassengerForm()
+    print('<><><><><><><><><><>')
     if request.method == 'POST':
         passenger_form = Passenger.data(
             request.POST, instance=request.user.passenger, files=request.FILES)
-    form = PassengerProfileForm(request.POST)
+    form = PassengerForm(request.POST)
     passenger = form.save(commit=False)
     passenger.user = request.user
     passenger.save()

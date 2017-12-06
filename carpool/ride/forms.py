@@ -44,7 +44,7 @@ class DriverProfileForm(forms.ModelForm):
         }
 
 
-class PassengerProfileForm(forms.ModelForm):
+class PassengerForm(forms.ModelForm):
     class Meta:
         model = Passenger
         fields = ('passenger', 'scanned', 'confirmed')

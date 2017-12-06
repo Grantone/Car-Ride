@@ -33,7 +33,7 @@ This is a website that allows a users to share a ride from one place to another.
 * Django
 
 ## Support and contact details
-In case of any inquiry you can reach us through my email gmchana254@gmail.com
+In case of any inquiry you can reach me through my email gmchana254@gmail.com
 
 ### License
 

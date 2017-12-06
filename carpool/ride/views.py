@@ -116,11 +116,11 @@ def new_profile(request):
 
 
 def passenger(request):
-
+    print('<><><><><><><><><><>')
     current_user = request.user
     passenger = Passenger.objects.filter(user=current_user).all()
     form = PassengerForm()
-    print('<><><><><><><><><><>')
+
     if request.method == 'POST':
         passenger_form = Passenger.data(
             request.POST, instance=request.user.passenger, files=request.FILES)

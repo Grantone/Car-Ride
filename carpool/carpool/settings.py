@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'ride.apps.RideConfig',
     'bootstrap3',
     'tinymce',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -94,7 +95,8 @@ DATABASES = {
     }
 }
 
-
+REGISTRATION_DEFAULT_GROUP_NAME = 'passenger'
+DRIVER_GROUP_NAME = 'driver'
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 

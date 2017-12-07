@@ -1,30 +1,30 @@
 from django.db import models
-from django.contrib.auth.models import User
+from carpool import settings
+from django.contrib.auth.models import User, Group
 from tinymce.models import HTMLField
 from django.utils.translation import ugettext_lazy as _
 from django.core import validators
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.db.models import Q, signals
+
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User)
-    picture = models.ImageField(upload_to='profiles/', null=True, blank=True)
-    bio = models.TextField(null=True, blank=True)
-    work = models.TextField(null=True, blank=True)
-
-    def __str__(self):
-        return self.user.username
-
-
 class Driver(models.Model):
-    driver = models.OneToOneField(User, on_delete=models.CASCADE)
+    driver = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='profile')
     liscence_no = models.CharField(
         _('liscence_no'), max_length=30, blank=False)
     scanned = models.ImageField(_('picture of driver\'s liscence'), blank=True)
-    confirmed = models.BooleanField(_('confirmed'), default=False)
+    car_picture = models.ImageField(upload_to='pictures/')
+    number_plates = models.CharField(max_length=30)
+    capacity = models.CharField(max_length=30)
+    color = models.CharField(max_length=30)
+    phone = PhoneNumberField(max_length=30)
+    city = models.CharField(max_length=60)
 
 
 @receiver(post_save, sender=Driver)
@@ -34,6 +34,24 @@ def create_driver_profile(sender, instance, created, **kwargs):
     sender = Driver
     save_driver_profile
     instance.driverprofile.save()
+
+
+User.profile = property(
+    lambda u: DriverProfile.objects.get_or_create(user=u)[0])
+
+
+@receiver(post_save, sender=User)
+def create_driver_profile(sender, instance, created, **kwargs):
+    if created:
+        Driver.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_driver_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+
+post_save.connect(create_driver_profile, sender=User)
 
 
 class Vehicle(models.Model):
@@ -80,6 +98,7 @@ class Passenger(models.Model):
     user = models.ForeignKey(User, null=True)
     passenger = models.CharField(max_length=30)
     scanned = models.ImageField(_('picture of passenger'), blank=True)
+    location = models.CharField(max_length=60)
     confirmed = models.BooleanField(_('confirmed'), default=False)
 
     def __str__(self):

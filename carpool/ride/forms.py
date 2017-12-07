@@ -1,5 +1,4 @@
 from django import forms
-from .models import Profile
 from .models import *
 from django.forms import widgets
 
@@ -9,13 +8,13 @@ class CarRideForm(forms.Form):
     email = forms.EmailField(label='Email')
 
 
-class NewProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ('picture', 'bio', 'work')
-        widgets = {
-            'profile': forms.CheckboxSelectMultiple(),
-        }
+# class NewProfileForm(forms.ModelForm):
+#     class Meta:
+#         model = Profile
+#         fields = ('picture', 'bio', 'work')
+#         widgets = {
+#             'profile': forms.CheckboxSelectMultiple(),
+#         }
 
 
 class VehicleAddForm(forms.ModelForm):
@@ -40,9 +39,6 @@ class DriverForm(forms.ModelForm):
         model = Driver
         exclude = ['user', ]
         fields = ('driver', 'liscence_no', 'scanned')
-        widgets = {
-            'driverprofile': forms.CheckboxSelectMultiple(),
-        }
 
 
 class PassengerForm(forms.ModelForm):

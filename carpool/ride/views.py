@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import datetime as dt
 from django.contrib.auth.decorators import login_required
 from .forms import NewProfileForm, PassengerForm, DriverForm
-from .models import User, Profile, Passenger
+from .models import User, Profile, Passenger, Driver
 from .email import send_welcome_email
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
@@ -115,11 +115,13 @@ def new_profile(request):
     return render(request, 'new_profile.html', {"form": form})
 
 
+@login_required
 def passenger(request):
 
     current_user = request.user
+
     passenger = Passenger.objects.filter(user=current_user)
-    print('<><><><><><><><><><>')
+
     form = PassengerForm(request.POST)
     if request.method == 'POST':
         form = PassengerForm(request.POST, request.FILES)
@@ -133,12 +135,38 @@ def passenger(request):
         form = PassengerForm(user=current_user)
         return render(request, 'all-rides/passenger.html', {"form": form, "passenger": current_user})
 
+    print('<><><><><>almost<><><><><>')
 
+
+@login_required
 def driver(request):
-    return render(request, 'driver.html')
+    current_user = request.user
+    print('<><><><><almost there><><><><><>')
+    driver = Driver.objects.filter(user=current_user)
+
+    form = DriverForm(request.POST)
+    if request.method == 'POST':
+        form = DriverForm(request.POST, request.FILES)
+        if form.is_valid():
+            driver = form.save(commit=False)
+            driver.user = request.user
+            driver.save()
+            return redirect(driver_profile, driver.id)
+
+    else:
+        form = DriverForm(user=current_user)
+        return render(request, 'all-rides/driver.html', {"form": form, "driver": current_user})
+
+    # return render(request, 'driver.html')
 
 
 def passenger_profile(request, passenger_id):
     passenger_profile = Profile.objects.get(id=passenger_id)
 
     return render(request, 'all-rides/passenger_profile.html', {"passenger_profile": passenger_profile})
+
+
+def driver_profile(request, driver_id):
+    driver_profile = Profile.objects.get(id=driver_id)
+
+    return render(request, 'all-rides/driver_profile.html', {"driver_profile": driver_profile})

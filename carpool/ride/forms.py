@@ -38,6 +38,7 @@ class Meta:
 class DriverForm(forms.ModelForm):
     class Meta:
         model = Driver
+        exclude = ['user', ]
         fields = ('driver', 'liscence_no', 'scanned')
         widgets = {
             'driverprofile': forms.CheckboxSelectMultiple(),

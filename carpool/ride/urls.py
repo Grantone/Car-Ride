@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^driver/$', views.driver, name='driver'),
     url(r'^passenger_profile/(\d+)$',
         views.passenger_profile, name='passenger_profile'),
-    url(r'^passenger_profile/(\d+)$',
+    url(r'^driver_profile/(\d+)$',
         views.driver_profile, name='driver_profile'),
 ]
 if settings.DEBUG:

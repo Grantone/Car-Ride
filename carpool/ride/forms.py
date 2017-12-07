@@ -38,7 +38,8 @@ class DriverForm(forms.ModelForm):
     class Meta:
         model = Driver
         exclude = ['user', ]
-        fields = ('driver', 'liscence_no', 'scanned')
+        fields = ('driver', 'liscence_no', 'scanned', 'car_picture',
+                  'number_plates', 'capacity', 'color', 'phone', 'city')
 
 
 class PassengerForm(forms.ModelForm):

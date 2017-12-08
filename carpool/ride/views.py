@@ -60,17 +60,6 @@ def convert_dates(dates):
     return day
 
 
-# def search_results(request):
-#     if '' in request.GET and request.GET["car"]:
-#         search_term = request.GET.get("")
-#         searched_cars = Car.search_by_title(search_term)
-#         message = f"{search_term}"
-#
-#         return render(request, 'profiles/search.html', {"message": message, "car": searched_cars})
-#
-#     else:
-#         message = "You haven't searched for any car ride"
-#         return render(request, 'profiles/search.html', {"message": message})
 @login_required(login_url='/accounts/login/')
 def profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)

@@ -29,9 +29,9 @@ class VehicleAddForm(forms.ModelForm):
         attrs={'type': 'number', 'class': 'form-control', 'required': True}))
 
 
-class Meta:
-    model = Vehicle
-    fields = ['make', 'model', 'plate', 'seats', 'type']
+# class Meta:
+#     model = Vehicle
+#     fields = ['make', 'model', 'plate', 'seats', 'type']
 
 
 class DriverForm(forms.ModelForm):
@@ -46,7 +46,7 @@ class PassengerForm(forms.ModelForm):
     class Meta:
         model = Passenger
         exclude = ['user', ]
-        fields = ('passenger', 'scanned', 'confirmed')
+        fields = ('passenger', 'scanned', 'phone', 'location')
 
     def __init__(self, user, *args, **kwargs):
         self.user = user

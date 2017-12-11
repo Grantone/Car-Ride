@@ -18,3 +18,21 @@ h1 {
 #dere {
   text-align: center;
 }
+
+
+#kesho {
+  text-align: center;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  width: 1px;
+  height:1px;
+}
+
+#map {
+  height: 500px;
+  background: #fff;
+  text-align: right;
+
+}

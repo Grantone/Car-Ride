@@ -1,5 +1,10 @@
-{% load bootstrap3 %}
-<form action='{%url "driver_profile" driver.id%}' method="post">
-  {% csrf_token %} {% bootstrap_form form%}
-  <input type="submit" value="Submit" />
-</form>
+{% load bootstrap3 %} {% load static %}
+
+<div class="container" id="kesho">
+
+  <form action='{%url "driver_profile" driver.id%}' method="post">
+    {% csrf_token %} {% bootstrap_form form%}
+    <input type="submit" value="Submit" />
+  </form>
+
+</div>

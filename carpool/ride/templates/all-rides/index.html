@@ -12,13 +12,25 @@
           <div class="text-center" style="text-shadow:#000 2px 2px 15px;" id="dere">
             <table style="width:30%" border="1">
               <tr>
-                <th><a class="" href="{% url 'driver' %}">Driver</a></th>
+                <th><a class="" href="{% url 'index' %}">Driver</a></th>
                 <th><a class="" href="{% url 'passenger' %}">Passenger</a></th>
               </tr>
             </table>
           </div>
         </div>
       </div>
+    </div>
+    <div class="places">
+      <p><strong id="home">Mombasa<small>@Mchana</small></strong></p>
+      <p><strong id="away">nairobi <small>@{{user.username}}</small></strong></p>
+      <p><strong>thika</strong></p>
+
+
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div id="map">
+
     </div>
   </div>
 </div>

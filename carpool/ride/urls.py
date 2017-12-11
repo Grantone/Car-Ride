@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^new/profile$', views.new_profile, name='new-profile'),
     url(r'^ride/(\d+)$', views.profile, name='profile'),
     url(r'^passenger/$', views.passenger, name='passenger'),
-    url(r'^driver/$', views.driver, name='driver'),
+    url(r'^driver/(\d+)', views.index, name='driver'),
     url(r'^passenger_profile/(\d+)$',
         views.passenger_profile, name='passenger_profile'),
     url(r'^driver_profile/(\d+)$',

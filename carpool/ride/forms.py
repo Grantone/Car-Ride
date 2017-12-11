@@ -36,9 +36,9 @@ class VehicleAddForm(forms.ModelForm):
 
 class DriverForm(forms.ModelForm):
     class Meta:
-        model = Driver
+        model = DriverInfo
         exclude = ['user', ]
-        fields = ('driver', 'liscence_no', 'scanned', 'car_picture',
+        fields = ('car_picture',
                   'number_plates', 'capacity', 'color', 'phone', 'city')
 
 

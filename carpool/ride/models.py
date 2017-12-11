@@ -13,8 +13,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 
 
-class Driver(models.Model):
-    driver = models.OneToOneField(
+class DriverInfo(models.Model):
+    user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='profile')
     liscence_no = models.CharField(
         _('liscence_no'), max_length=30, blank=False)
@@ -27,31 +27,22 @@ class Driver(models.Model):
     city = models.CharField(max_length=60)
 
 
-@receiver(post_save, sender=Driver)
-def create_driver_profile(sender, instance, created, **kwargs):
-    if created:
-        Driver(driver=instance)
-    sender = Driver
-    save_driver_profile
-    instance.driverprofile.save()
-
-
 User.profile = property(
-    lambda u: Driver.objects.get_or_create(driver=u)[0])
+    lambda u: DriverInfo.objects.get_or_create(user=u)[0])
 
 
 @receiver(post_save, sender=User)
-def create_driver_profile(sender, instance, created, **kwargs):
+def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Driver.objects.create(user=instance)
+        DriverInfo.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
-def save_driver_profile(sender, instance, **kwargs):
+def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-post_save.connect(create_driver_profile, sender=User)
+post_save.connect(create_user_profile, sender=User)
 
 
 class VehicleSharing(models.Model):
@@ -80,14 +71,14 @@ class Passenger(models.Model):
     phone = PhoneNumberField(max_length=30)
     location = models.CharField(max_length=60)
 
-    # post_save.connect(PassengerProfile.default_passengers_group, sender=User)
-
 
 User.passenger = property(
     lambda u: Passenger.objects.get_or_create(user=u)[0])
 
 
-@receiver(post_save, sender=User)
+receiver(post_save, sender=User)
+
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Passenger.objects.create(user=instance)
@@ -95,7 +86,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.passenger_profile.save()
+    instance.rider_profile.save()
 
 
 post_save.connect(create_user_profile, sender=User)

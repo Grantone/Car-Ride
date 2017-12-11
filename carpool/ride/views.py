@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import datetime as dt
 from django.contrib.auth.decorators import login_required
 from .forms import PassengerForm, DriverForm
-from .models import User, Passenger, Driver
+from .models import Passenger, DriverInfo
 from .email import send_welcome_email
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
@@ -128,10 +128,10 @@ def passenger(request):
 
 
 @login_required
-def driver(request):
+def driver(request, user_id):
     current_user = request.user
     print('<><><><><almost there><><><><><>')
-    driver = Driver.objects.filter(driver=current_user)
+    driver = DriverInfo.objects.filter(user=current_user)
 
     form = DriverForm(request.POST)
     if request.method == 'POST':
@@ -143,19 +143,21 @@ def driver(request):
             return redirect(driver_profile, driver.id)
 
     else:
-        form = DriverForm(user=current_user)
+        form = DriverForm()
         return render(request, 'all-rides/driver.html', {"form": form, "driver": current_user})
 
     # return render(request, 'driver.html')
 
 
-def passenger_profile(request, passenger_id):
-    passenger_profile = Profile.objects.get(id=passenger_id)
-
-    return render(request, 'all-rides/passenger_profile.html', {"passenger_profile": passenger_profile})
-
-
-def driver_profile(request, driver_id):
-    driver_profile = Profile.objects.get(id=driver_id)
+def driver_profile(request, user_id):
+    user = request.user
+    driver_profile = DriverInfo.objects.get(user_id=user.id)
 
     return render(request, 'all-rides/driver_profile.html', {"driver_profile": driver_profile})
+
+
+def passenger_profile(request, user_id):
+    user = request.user
+    passenger_profile = Passenger.objects.get(user_id=user.id)
+
+    return render(request, 'all-rides/passenger_profile.html', {"passenger_profile": passenger_profile})
